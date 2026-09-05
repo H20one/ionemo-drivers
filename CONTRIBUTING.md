@@ -376,7 +376,13 @@ def test_get_data_failure():
 
 1. **Fork this repo**, add your driver on a branch (`ionemo_drivers/{type}/my_device.py`
    for a builtin-style addition — see Step 5 — or your own separate package for an external one, see
-   Step 6), and open a pull request against `main`.
+   Step 6), and open a pull request against **`acceptance`**, not `main`.
+
+   `acceptance` is where changes are verified before release: a maintainer can point the main
+   app's ACC deployment at that branch and run your driver against real hardware there, which is
+   the only place that can happen — this repo's own tests mock all I/O by design. `main` is what
+   the app pins a release tag from, and it is reached by merging `acceptance` into it once that
+   has been done.
 2. **CI runs automatically** on every PR: `tests/test_contract_compliance.py` (structural checks —
    identity attributes, method signatures, ABC hierarchy) and `tests/test_security_compliance.py`
    (static analysis against [SECURITY.md](SECURITY.md)'s rules — forbidden imports/calls, credential

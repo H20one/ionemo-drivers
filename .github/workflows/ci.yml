@@ -1,10 +1,16 @@
 name: CI
 
+# Same acceptance -> PR -> main flow as the other three repos. Contributions land on
+# `acceptance` first so a driver can be exercised against the app's ACC deployment
+# before it reaches `main`; `main` is what ionemo-app pins a release tag from.
+#
+# `pull_request` covers both branches so a fork's PR is checked before it is merged
+# anywhere, and the push trigger re-runs the suite on the branch itself after a merge.
 on:
   push:
-    branches: [main]
+    branches: [main, acceptance]
   pull_request:
-    branches: [main]
+    branches: [main, acceptance]
 
 jobs:
   lint-and-test:

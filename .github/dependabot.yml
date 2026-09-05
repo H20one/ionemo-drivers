@@ -1,10 +1,17 @@
 version: 2
+# target-branch mirrors the other three repos: updates land on `acceptance` and reach
+# `main` through the normal PR, rather than bypassing the verification step every other
+# change goes through. Both branches must exist for this to produce anything at all --
+# pointing target-branch at a branch that has been deleted is how ionemo-email silently
+# stopped receiving Dependabot PRs entirely (see ionemo-app's ROADMAP.md, C11).
 updates:
   - package-ecosystem: "pip"
     directory: "/"
+    target-branch: "acceptance"
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
     directory: "/"
+    target-branch: "acceptance"
     schedule:
       interval: "weekly"
