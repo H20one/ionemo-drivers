@@ -17,9 +17,9 @@ These rules apply to all code inside `ionemo_drivers/` — including builtin dri
 **Note on automated enforcement:** `tests/test_security_compliance.py` can only scan files
 physically present in this repo's `ionemo_drivers/` tree (builtin drivers + root-level infra). It cannot
 and does not scan externally pip-installed driver packages — those are only covered by this
-document as policy and by manual/agent-assisted review (`.github/agents/driver-reviewer.agent.md`,
-run on request via the `ai-review` label — see CONTRIBUTING.md step 3 for why it is deliberately
-not automatic), not by the automated test suite. See "Enforcement" at the bottom for exactly which rules below
+document as policy, and by review — GitHub Copilot's PR review (guided by
+`.github/copilot-instructions.md`) plus a maintainer's own read — not by the automated test
+suite. See "Enforcement" at the bottom for exactly which rules below
 have an automated check today and which are policy-only.
 
 ---
@@ -67,7 +67,7 @@ Drivers **MUST NOT**:
 
 **(policy only — no automated check, and this one fundamentally can't have one: nothing about a
 fabricated hex string and a real captured one is syntactically different, so no static scan can
-tell them apart. Enforcement is entirely PR review — the driver-reviewer agent and a human — see
+tell them apart. Enforcement is entirely PR review — Copilot's review and a human — see
 "Enforcement" below.)**
 
 This is distinct from credential safety (§1.2, about secrets a driver handles at *runtime*) — this
@@ -233,7 +233,7 @@ Drivers **MUST NOT**:
    (a separate suite validating *structural* requirements — identity attributes, method signatures,
    ABC hierarchy — it contains no security checks itself). This is the only enforcement that runs
    without anyone deliberately invoking it.
-2. **Not automated, despite the name**: `.github/agents/driver-reviewer.agent.md` is a checklist
+2. **Not automated**: `.github/copilot-instructions.md` is review guidance, a checklist
    for a human or AI assistant to apply *when asked* to review a PR — it is not wired into any
    GitHub Actions workflow and does not run by itself. Don't assume a PR has been checked against it
    just because it exists in this repo; someone has to actually invoke it.

@@ -52,7 +52,7 @@ ionemo-drivers/
 │       └── daikin_brp.md
 ├── SECURITY.md               ← Security rules all drivers must follow
 ├── CONTRIBUTING.md           ← Step-by-step guide to writing a driver
-└── .github/agents/driver-reviewer.agent.md   ← AI reviewer that runs on every PR
+└── .github/copilot-instructions.md           ← guidance for Copilot's PR review
 ```
 
 ---
@@ -172,11 +172,9 @@ Run both with:
 pytest tests/ -v
 ```
 
-There is also an AI-powered **driver-reviewer agent**
-(`.github/agents/driver-reviewer.agent.md`) that performs a deeper review during pull requests,
-covering things static analysis structurally can't (data-contract correctness against the relevant
-device type's contract doc, sensible error handling, whether a protocol was actually implemented
-correctly).
+GitHub Copilot also reviews pull requests, guided by `.github/copilot-instructions.md`, covering
+the contract and judgement checks the automated suites cannot. That review is advisory — the
+suites above are what gate a merge.
 
 ---
 
