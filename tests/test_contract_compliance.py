@@ -427,3 +427,24 @@ class TestValidateContractData:
         from ionemo_drivers.contract_validation import _CONTRACT_BY_DEVICE_TYPE
 
         assert set(_CONTRACT_BY_DEVICE_TYPE) == set(DeviceType)
+
+
+class TestPackageVersion:
+    """The installed package version must be the one in VERSION.
+
+    These were two separate copies and drifted immediately: VERSION reached 0.6.1 while
+    pyproject.toml still declared 0.5.0, so a pip install of newer code reported the old
+    version. That matters here more than in most repos -- ionemo-app pins this package by
+    ref, and an ACC build can override that ref to test a driver branch, so the installed
+    metadata is how anyone answers "which driver code is actually in this image?".
+    pyproject now derives the version from VERSION; this asserts the two agree.
+    """
+
+    def test_installed_version_matches_the_version_file(self):
+        from importlib.metadata import version
+        from pathlib import Path
+
+        declared = (
+            Path(__file__).parent.parent / "VERSION"
+        ).read_text(encoding="utf-8").strip()
+        assert version("ionemo-drivers") == declared

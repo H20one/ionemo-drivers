@@ -376,29 +376,32 @@ def test_get_data_failure():
 
 1. **Fork this repo**, add your driver on a branch (`ionemo_drivers/{type}/my_device.py`
    for a builtin-style addition — see Step 5 — or your own separate package for an external one, see
-   Step 6), and open a pull request against `main`.
+   Step 6), and open a pull request against **`acceptance`**, not `main`.
+
+   `acceptance` is where changes are verified before release: a maintainer can point the main
+   app's ACC deployment at that branch and run your driver against real hardware there, which is
+   the only place that can happen — this repo's own tests mock all I/O by design. `main` is what
+   the app pins a release tag from, and it is reached by merging `acceptance` into it once that
+   has been done.
 2. **CI runs automatically** on every PR: `tests/test_contract_compliance.py` (structural checks —
    identity attributes, method signatures, ABC hierarchy) and `tests/test_security_compliance.py`
    (static analysis against [SECURITY.md](SECURITY.md)'s rules — forbidden imports/calls, credential
    logging, missing timeouts, outbound-internet calls, etc.). Both must pass before review.
-3. **A maintainer may request an AI review** by adding the `ai-review` label, which runs
-   `.github/agents/driver-reviewer.agent.md` against the diff and posts the result as a PR
-   comment (`.github/workflows/driver-review.yml`). It covers what static analysis cannot —
-   data contract correctness against the relevant `docs/contracts/{device_type}.md`,
-   `discover()`/`get_data()` never raising, whether warnings are actually useful to a
+3. **A maintainer requests a GitHub Copilot review** on the pull request (Reviewers -> Copilot),
+   guided by `.github/copilot-instructions.md`. It covers what static analysis cannot — data contract
+   correctness against the relevant `docs/contracts/{device_type}.md`, whether
+   `discover()`/`get_data()` genuinely never raise, whether a warning would actually help a
    non-technical person.
 
-   **It is advisory, not a gate, and it does not run automatically.** Two reasons, both
-   deliberate. This repository is public and takes contributions from forks: a fork's PR gets
-   no repository secrets, so an automatic API-key review would silently do nothing in exactly
-   the case it exists for, and the trigger that *does* get secrets
-   (`pull_request_target`) combined with untrusted code is a well-known way to get a repo
-   compromised. And the model reads attacker-controllable diff text, so it can be talked out of
-   reporting something. A maintainer applying a label is a person deciding to run it on a
-   specific PR; the result informs their read rather than replacing it.
+   It is advisory. It informs the maintainer's read; it does not gate the merge. The checks in
+   step 2 do that.
 
-   If no `ANTHROPIC_API_KEY` secret is configured the job skips with a notice, and the
-   deterministic suites in step 2 still gate the PR as normal.
+   > **Maintainers:** this is requested per pull request, not automatic. Automatic Copilot code
+   > review needs Copilot Pro+/Business/Enterprise and an organization-level policy; this repo is
+   > owned by a personal account, so that route is unavailable (a repository ruleset with
+   > `automatic_copilot_code_review_enabled` is accepted by the API and then silently ignored).
+   > If that changes, turn it on and update this note — but do not describe it as automatic while
+   > it is not. A review step documented but not running is the exact problem this replaced.
 4. **A maintainer does the final review** — CI passing is necessary, not sufficient; a human
    still confirms the driver is safe and correct before merging, especially
    for anything the static checks structurally can't verify. This repo's own tests mock all
