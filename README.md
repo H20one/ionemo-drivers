@@ -172,9 +172,9 @@ Run both with:
 pytest tests/ -v
 ```
 
-GitHub Copilot also reviews pull requests, guided by `.github/copilot-instructions.md`, covering
-the contract and judgement checks the automated suites cannot. That review is advisory — the
-suites above are what gate a merge.
+A maintainer can also request a GitHub Copilot review on a pull request, guided by
+`.github/copilot-instructions.md`, covering the contract and judgement checks the automated suites
+cannot. That review is advisory and requested per PR — the suites above are what gate a merge.
 
 ---
 
