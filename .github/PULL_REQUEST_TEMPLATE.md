@@ -27,3 +27,17 @@ too, which a PR here can't do on its own.
 -->
 
 - [ ] No, none of the above apply to this PR.
+
+---
+
+## For the maintainer
+
+<!-- Contributors can ignore this section — these are steps only a maintainer can take. -->
+
+- [ ] **Requested a Copilot review** (Reviewers → Copilot), per
+      [CONTRIBUTING.md](../CONTRIBUTING.md) step 3. Nothing requests it for you: automatic review
+      is unavailable on a personal account, so this is the one review step with no machine behind
+      it. It is advisory and does not gate the merge — but an advisory step that is never actually
+      run is indistinguishable from the missing gate this replaced.
+- [ ] For a driver change against hardware you own: tested on **ACC**, never production, using the
+      app's `drivers_ref` deploy input.
