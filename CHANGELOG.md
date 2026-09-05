@@ -2,6 +2,17 @@
 
 All notable changes to the device drivers package are documented here.
 
+## 0.6.2 — 2026-09-06
+
+### Fixed
+- **The installed package reported the wrong version.** `pyproject.toml` restated the version as a
+  literal instead of reading the `VERSION` file, and the two drifted the moment they became separate
+  copies: the code reached 0.6.1 while `pip show ionemo-drivers` and
+  `importlib.metadata.version(...)` still answered 0.5.0. Anyone installing from a branch or a
+  checkout to test a driver could not tell from the installed metadata which code they actually had.
+  The version is now derived from `VERSION`, so there is only one place to change and nothing to
+  keep in sync.
+
 ## 0.6.1 — 2026-09-05
 
 ### Changed
