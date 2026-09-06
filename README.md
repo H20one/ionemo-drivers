@@ -52,7 +52,7 @@ ionemo-drivers/
 │       └── daikin_brp.md
 ├── SECURITY.md               ← Security rules all drivers must follow
 ├── CONTRIBUTING.md           ← Step-by-step guide to writing a driver
-└── .github/copilot-instructions.md           ← guidance for Copilot's PR review
+└── .github/copilot-instructions.md           ← driver review checklist (applied by hand)
 ```
 
 ---
@@ -172,9 +172,12 @@ Run both with:
 pytest tests/ -v
 ```
 
-A maintainer can also request a GitHub Copilot review on a pull request, guided by
+A maintainer also reviews each pull request against the checklist in
 `.github/copilot-instructions.md`, covering the contract and judgement checks the automated suites
-cannot. That review is advisory and requested per PR — the suites above are what gate a merge.
+cannot. That review is advisory and done by hand — no automated AI review runs on pull requests
+here — and the suites above are what gate a merge. The file keeps its name because GitHub Copilot
+picks it up as repository instructions in the editor, which does work on this plan; only Copilot's
+*pull request review* does not.
 
 ---
 

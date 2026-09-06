@@ -387,21 +387,27 @@ def test_get_data_failure():
    identity attributes, method signatures, ABC hierarchy) and `tests/test_security_compliance.py`
    (static analysis against [SECURITY.md](SECURITY.md)'s rules — forbidden imports/calls, credential
    logging, missing timeouts, outbound-internet calls, etc.). Both must pass before review.
-3. **A maintainer requests a GitHub Copilot review** on the pull request (Reviewers -> Copilot),
-   guided by `.github/copilot-instructions.md`. It covers what static analysis cannot — data contract
+3. **A maintainer reviews against the driver checklist** in
+   `.github/copilot-instructions.md`. It covers what static analysis cannot — data contract
    correctness against the relevant `docs/contracts/{device_type}.md`, whether
    `discover()`/`get_data()` genuinely never raise, whether a warning would actually help a
    non-technical person.
 
-   It is advisory. It informs the maintainer's read; it does not gate the merge. The checks in
-   step 2 do that.
+   The maintainer applies it by hand, with or without an AI assistant helping them read the
+   diff. It is advisory: it informs their read, it does not gate the merge. The checks in step 2 do
+   that.
 
-   > **Maintainers:** this is requested per pull request, not automatic. Automatic Copilot code
-   > review needs Copilot Pro+/Business/Enterprise and an organization-level policy; this repo is
-   > owned by a personal account, so that route is unavailable (a repository ruleset with
-   > `automatic_copilot_code_review_enabled` is accepted by the API and then silently ignored).
-   > If that changes, turn it on and update this note — but do not describe it as automatic while
-   > it is not. A review step documented but not running is the exact problem this replaced.
+   > **Maintainers:** nothing here claims an AI reviews your pull request automatically, because
+   > none does. GitHub's Copilot code review is unavailable on this repository at the plan this
+   > account holds — it requires a paid Copilot plan, and `H20one` is on Copilot Free. In practice
+   > that means "Copilot" does not appear in the Reviewers picker at all, and the
+   > `POST /pulls/{n}/requested_reviewers` API accepts the request with HTTP 200 and then does
+   > nothing. (A repository ruleset carrying `automatic_copilot_code_review_enabled` is ignored the
+   > same way, and creating one silently re-allows squash and rebase merges as a side effect.)
+   >
+   > If the plan changes, wire it up and update this note — but do not describe a review step that
+   > does not run. That was the original problem in this file, and assuming the feature was
+   > available has now re-introduced it twice.
 4. **A maintainer does the final review** — CI passing is necessary, not sufficient; a human
    still confirms the driver is safe and correct before merging, especially
    for anything the static checks structurally can't verify. This repo's own tests mock all
