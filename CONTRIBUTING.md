@@ -387,21 +387,15 @@ def test_get_data_failure():
    identity attributes, method signatures, ABC hierarchy) and `tests/test_security_compliance.py`
    (static analysis against [SECURITY.md](SECURITY.md)'s rules — forbidden imports/calls, credential
    logging, missing timeouts, outbound-internet calls, etc.). Both must pass before review.
-3. **A maintainer requests a GitHub Copilot review** on the pull request (Reviewers -> Copilot),
-   guided by `.github/copilot-instructions.md`. It covers what static analysis cannot — data contract
+3. **A maintainer reviews against the driver checklist** in
+   `.github/copilot-instructions.md`. It covers what static analysis cannot — data contract
    correctness against the relevant `docs/contracts/{device_type}.md`, whether
    `discover()`/`get_data()` genuinely never raise, whether a warning would actually help a
    non-technical person.
 
-   It is advisory. It informs the maintainer's read; it does not gate the merge. The checks in
-   step 2 do that.
-
-   > **Maintainers:** this is requested per pull request, not automatic. Automatic Copilot code
-   > review needs Copilot Pro+/Business/Enterprise and an organization-level policy; this repo is
-   > owned by a personal account, so that route is unavailable (a repository ruleset with
-   > `automatic_copilot_code_review_enabled` is accepted by the API and then silently ignored).
-   > If that changes, turn it on and update this note — but do not describe it as automatic while
-   > it is not. A review step documented but not running is the exact problem this replaced.
+   The maintainer applies it by hand, reading the diff. It is advisory: it informs their read, it
+   does not gate the merge. The checks in step 2 do that — they run on every pull request and are
+   the only thing that can block one.
 4. **A maintainer does the final review** — CI passing is necessary, not sufficient; a human
    still confirms the driver is safe and correct before merging, especially
    for anything the static checks structurally can't verify. This repo's own tests mock all

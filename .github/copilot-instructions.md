@@ -1,7 +1,8 @@
 # Copilot instructions — ionemo-drivers
 
-Review guidance for GitHub Copilot code review on pull requests in this repository, and for
-Copilot Chat when working here.
+Driver review checklist for this repository — for a maintainer reading a pull request, and for
+Copilot Chat or another AI assistant working here. Nothing applies it automatically; someone has to
+invoke it.
 
 This repository is public and accepts driver contributions from anyone, so a driver lands on a
 stranger's home network and talks to their hardware. Review accordingly: flag **every** violation

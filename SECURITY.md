@@ -17,8 +17,8 @@ These rules apply to all code inside `ionemo_drivers/` — including builtin dri
 **Note on automated enforcement:** `tests/test_security_compliance.py` can only scan files
 physically present in this repo's `ionemo_drivers/` tree (builtin drivers + root-level infra). It cannot
 and does not scan externally pip-installed driver packages — those are only covered by this
-document as policy, and by review — a maintainer-requested GitHub Copilot review (guided by
-`.github/copilot-instructions.md`) plus their own read — not by the automated test suite. See "Enforcement" at the bottom for exactly which rules below
+document as policy, and by review — a maintainer reading the diff against the checklist in
+`.github/copilot-instructions.md` — not by the automated test suite. See "Enforcement" at the bottom for exactly which rules below
 have an automated check today and which are policy-only.
 
 ---
@@ -66,8 +66,7 @@ Drivers **MUST NOT**:
 
 **(policy only — no automated check, and this one fundamentally can't have one: nothing about a
 fabricated hex string and a real captured one is syntactically different, so no static scan can
-tell them apart. Enforcement is entirely PR review — Copilot's review and a human — see
-"Enforcement" below.)**
+tell them apart. Enforcement is entirely PR review by a human — see "Enforcement" below.)**
 
 This is distinct from credential safety (§1.2, about secrets a driver handles at *runtime*) — this
 rule is about what gets *committed*, and it applies to test fixtures, docstrings, comments, example

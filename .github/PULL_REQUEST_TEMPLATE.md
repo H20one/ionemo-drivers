@@ -27,3 +27,16 @@ too, which a PR here can't do on its own.
 -->
 
 - [ ] No, none of the above apply to this PR.
+
+---
+
+## For the maintainer
+
+<!-- Contributors can ignore this section — these are steps only a maintainer can take. -->
+
+- [ ] **Read the diff against the driver checklist** in
+      [.github/copilot-instructions.md](copilot-instructions.md), per
+      [CONTRIBUTING.md](../CONTRIBUTING.md) step 3. Nothing runs this for you, and it is the only
+      step covering what static analysis structurally cannot.
+- [ ] For a driver change against hardware you own: tested on **ACC**, never production, using the
+      app's `drivers_ref` deploy input.
