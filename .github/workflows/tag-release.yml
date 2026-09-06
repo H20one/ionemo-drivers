@@ -1,0 +1,48 @@
+name: Tag Release
+
+# Bakes tagging into the release step itself (N57), rather than leaving it to memory --
+# the newest tag had drifted six versions behind VERSION (stuck at v0.5.0 while VERSION
+# reached 0.6.2) purely because nobody remembered to run `git tag` by hand. Same lesson
+# this ecosystem already learned once from the version-metadata fix: a fact restated in
+# two places drifts the moment it isn't the same place.
+#
+# Runs only on `main`, deliberately, never on `acceptance` or any other branch: `main`
+# is what ionemo-app pins a release tag from (see ci.yml's own comment), so that's the
+# only branch a "release" tag means anything on. A tag on an acceptance-stage commit
+# would be actively misleading -- it hasn't been verified against ACC yet.
+on:
+  push:
+    branches: [main]
+    paths: [VERSION]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Tag the release if this VERSION isn't tagged yet
+        run: |
+          set -euo pipefail
+          version="$(cat VERSION)"
+          tag="v${version}"
+
+          # Check the remote, not local state -- a shallow checkout has no tag history
+          # to consult, and querying the remote is what actually answers "does this
+          # release already have a tag" regardless of checkout depth.
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+            echo "${tag} already exists -- nothing to do."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${tag}" -m "Release ${tag}"
+          git push origin "${tag}"
+          echo "Tagged ${tag}"
