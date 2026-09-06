@@ -393,21 +393,9 @@ def test_get_data_failure():
    `discover()`/`get_data()` genuinely never raise, whether a warning would actually help a
    non-technical person.
 
-   The maintainer applies it by hand, with or without an AI assistant helping them read the
-   diff. It is advisory: it informs their read, it does not gate the merge. The checks in step 2 do
-   that.
-
-   > **Maintainers:** nothing here claims an AI reviews your pull request automatically, because
-   > none does. GitHub's Copilot code review is unavailable on this repository at the plan this
-   > account holds — it requires a paid Copilot plan, and `H20one` is on Copilot Free. In practice
-   > that means "Copilot" does not appear in the Reviewers picker at all, and the
-   > `POST /pulls/{n}/requested_reviewers` API accepts the request with HTTP 200 and then does
-   > nothing. (A repository ruleset carrying `automatic_copilot_code_review_enabled` is ignored the
-   > same way, and creating one silently re-allows squash and rebase merges as a side effect.)
-   >
-   > If the plan changes, wire it up and update this note — but do not describe a review step that
-   > does not run. That was the original problem in this file, and assuming the feature was
-   > available has now re-introduced it twice.
+   The maintainer applies it by hand, reading the diff. It is advisory: it informs their read, it
+   does not gate the merge. The checks in step 2 do that — they run on every pull request and are
+   the only thing that can block one.
 4. **A maintainer does the final review** — CI passing is necessary, not sufficient; a human
    still confirms the driver is safe and correct before merging, especially
    for anything the static checks structurally can't verify. This repo's own tests mock all

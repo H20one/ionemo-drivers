@@ -172,12 +172,9 @@ Run both with:
 pytest tests/ -v
 ```
 
-A maintainer also reviews each pull request against the checklist in
+A maintainer also reviews each pull request by hand against the checklist in
 `.github/copilot-instructions.md`, covering the contract and judgement checks the automated suites
-cannot. That review is advisory and done by hand — no automated AI review runs on pull requests
-here — and the suites above are what gate a merge. The file keeps its name because GitHub Copilot
-picks it up as repository instructions in the editor, which does work on this plan; only Copilot's
-*pull request review* does not.
+cannot. That review is advisory; the suites above are what gate a merge.
 
 ---
 

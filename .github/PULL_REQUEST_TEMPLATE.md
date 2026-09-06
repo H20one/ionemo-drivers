@@ -36,9 +36,7 @@ too, which a PR here can't do on its own.
 
 - [ ] **Read the diff against the driver checklist** in
       [.github/copilot-instructions.md](copilot-instructions.md), per
-      [CONTRIBUTING.md](../CONTRIBUTING.md) step 3. No AI reviews this PR automatically — Copilot's
-      pull request review needs a paid Copilot plan this account does not have, so it is absent
-      from the Reviewers picker entirely. This step is the only thing covering what static analysis
-      structurally cannot, and it happens by hand or not at all.
+      [CONTRIBUTING.md](../CONTRIBUTING.md) step 3. Nothing runs this for you, and it is the only
+      step covering what static analysis structurally cannot.
 - [ ] For a driver change against hardware you own: tested on **ACC**, never production, using the
       app's `drivers_ref` deploy input.
