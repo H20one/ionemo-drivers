@@ -8,7 +8,7 @@ This guide explains how to create a new driver for the Ionemo app.
 
 - A real, commercially available device (brand + model)
 - Access to the device's API documentation or protocol specification
-- Python 3.13+
+- Python 3.14+
 
 Install this repo's own package in editable mode plus the exact dev toolchain CI runs against —
 same `ruff`/`basedpyright`/`pytest` versions, same `pyrightconfig.json` (already in the repo, so it
