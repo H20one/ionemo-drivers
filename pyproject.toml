@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "Device driver plugins for Ionemo, a self-hosted smart energy & home control platform"
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "requests>=2.32,<3",
     "pyserial>=3.5,<4",
