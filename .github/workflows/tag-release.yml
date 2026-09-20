@@ -46,3 +46,17 @@ jobs:
           git tag -a "${tag}" -m "Release ${tag}"
           git push origin "${tag}"
           echo "Tagged ${tag}"
+
+          # Public repo -- release notes matter here, not just the tag (a bare tag with no
+          # Release object is easy to create and easy to forget people actually read Releases).
+          # Extracts this version's own CHANGELOG.md section (between its heading and the next
+          # `## `) as the notes body, so there's exactly one place release-notes prose is written.
+          notes_file="$(mktemp)"
+          awk -v ver="$version" '
+            $0 ~ "^## " ver " " { found=1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md > "$notes_file"
+          gh release create "${tag}" --title "${tag}" --notes-file "$notes_file" --latest
+        env:
+          GH_TOKEN: ${{ github.token }}
